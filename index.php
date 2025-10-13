@@ -12,16 +12,15 @@
         <div class="container">
             <h1>Mijn Dynamische Webshop</h1>
             <nav>
-                <a href="#">Home</a>
-                <a href="#">Producten</a>
-                <a href="#">Winkelwagen (0)</a>
+                <a href="index.php">Home</a>
+                <a href="products.php">Producten</a>
+                <a href="shopping_cart.php">Winkelwagen <span class="product-count"><?php echo $product_count;?></span></a>
             </nav>
         </div>
     </header>
-
+    
     <main class="container">
-        <h2>Populaire Producten</h2>
-        
+        <h2>Nieuwe Producten</h2>
         <div class="product-grid">
 
             <div class="product-card">
