@@ -79,5 +79,8 @@ CREATE TABLE product_attributen (
     sleutel_nl          VARCHAR(100)    NOT NULL,
     waarde_nl           VARCHAR(255)    NOT NULL,
     
-    FOREIGN KEY (product_id) REFERENCES producten(product_id) ON DELETE CASCADE
-); --chromebook moet nog!
+    -- FOREIGN KEY (product_id) REFERENCES producten(product_id) ON DELETE CASCADE
+);
+--hierboven toegevoegd hieronder alleen nog op de asus toevoegen.
+CREATE USER 'webuser'@'localhost' IDENTIFIED BY 'binck@guus2025';
+GRANT ALL PRIVILEGES ON webshop.* TO 'webuser'@'localhost';

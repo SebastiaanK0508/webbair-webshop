@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Product Toevoegen (Uitgebreid)</title>
     <style>
-        /* Standaard CSS */
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 20px; }
         .container { max-width: 900px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
         h1 { border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-bottom: 25px; }

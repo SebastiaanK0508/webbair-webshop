@@ -7,11 +7,6 @@ $type = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // ----------------------------------------------------------------------------------
-    // 1. DATA OPHALEN & SANITIZEN
-    // ----------------------------------------------------------------------------------
-    
-    // Tekstvelden (String)
     $naam_nl                = trim($_POST['naam_nl'] ?? '');
     $sku                    = trim($_POST['sku'] ?? '');
     $ean                    = trim($_POST['ean'] ?? NULL);
@@ -27,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Voor nu gebruiken we de naam.
     $slug_nl = strtolower(str_replace(' ', '-', $naam_nl)); 
     
-    // Numerieke velden (Float/Int)
     $prijs_excl_btw         = filter_var($_POST['prijs_excl_btw'] ?? 0, FILTER_VALIDATE_FLOAT);
     $btw_tarief_id          = filter_var($_POST['btw_tarief_id'] ?? 0, FILTER_VALIDATE_INT);
     $gewicht_gram           = filter_var($_POST['gewicht_gram'] ?? NULL, FILTER_VALIDATE_INT);
@@ -64,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $type = "error";
     } else {
         try {
-            // SQL INSERT STATEMENT - NU MET ALLE 17 VELDEN
             $sql = "INSERT INTO producten (
                         naam_nl, sku, ean, slug_nl, beschrijving_kort_nl, beschrijving_lang_nl, 
                         prijs_excl_btw, btw_tarief_id, gewicht_gram, voorraad_aantal, voorraad_laag_limiet,
@@ -76,10 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         :zichtbaar, :uitverkocht, :categorie_id, :merk_id, 
                         :afbeelding_pad, :video, :meta_titel, :meta_beschrijving
                     )";
-            
             $stmt = $pdo->prepare($sql);
-            
-            // Bind ALLE 17 waarden
             $stmt->bindParam(':naam', $naam_nl);
             $stmt->bindParam(':sku', $sku);
             $stmt->bindParam(':ean', $ean);
@@ -111,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
-                // Kan door SKU, EAN of SLUG komen
                 $message = "Fout: SKU, EAN of SLUG bestaat al, of een van de opgegeven ID's (BTW, Categorie, Merk) bestaat niet.";
             } else {
                 $message = "PDO Fout: " . $e->getMessage();
@@ -123,10 +112,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = "Geen formuliergegevens ontvangen (alleen POST toegestaan).";
     $type = "error";
 }
-
-// ----------------------------------------------------------------------
-// 4. TOON STATUSBERICHT (HTML/CSS is ongewijzigd)
-// ----------------------------------------------------------------------
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -147,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="message-box <?php echo $type; ?>">
         <?php echo nl2br(htmlspecialchars($message)); ?>
-        <p><a href="product_form.html">Terug naar formulier</a></p>
+        <p><a href="product_form.php">Terug naar formulier</a></p>
     </div>
 </body>
 </html>

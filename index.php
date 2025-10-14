@@ -1,20 +1,29 @@
+<?php
+    session_start();
+    if ($_SESSION['loggedin'] !== true) {
+        header("Location: begin.php");
+    }
+    include 'get_products.php';
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Onze Producten - Webshop Voorbeeld</title>
+    <title>Webbair Webshop</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <div class="container">
-            <h1>Mijn Dynamische Webshop</h1>
+            <h1>Webbair Webshop</h1>
             <nav>
                 <a href="index.php">Home</a>
-                <a href="products.php">Producten</a>
-                <a href="shopping_cart.php">Winkelwagen <span class="product-count"><?php echo $product_count;?></span></a>
+                <a href="products.php">Shop</a>
+                <a href="products.php">Over Webbair</a>
+                <a href="products.php">Contact</a>
+                <a href="shopping_cart.php">Winkelwagen <span class="product-count">(<?php echo $count;?>)</a>
             </nav>
         </div>
     </header>
@@ -25,9 +34,9 @@
 
             <div class="product-card">
                 <img src="placeholder_mok.jpg" alt="Zwarte Koffiemok">
-                <h3 class="product-naam">{{ Productnaam 1 (uit SQL) }}</h3>
+                <h3 class="product-naam"><?php echo htmlspecialchars($product['naam_nl']); ?></h3>
                 <p class="product-beschrijving">Een elegante, matzwarte mok. Perfect voor uw dagelijkse dosis cafeïne.</p>
-                <p class="product-prijs">€ {{ Prijs 1 (uit SQL) }}</p>
+                <p class="product-prijs"><?php echo number_format($product['prijs_excl_btw'], 2, ',', '.'); ?></p>
                 <button class="koop-nu">In Winkelwagen</button>
             </div>
 
@@ -41,10 +50,9 @@
 
             </div>
         </main>
-
     <footer>
         <div class="container">
-            <p>&copy; 2025 Mijn Dynamische Webshop | Privacy | Contact</p>
+            <p>&copy; 2025 Webbair Webshop | <a>Privacy</a> | <a>Contact</a></p>
         </div>
     </footer>
 
