@@ -1,0 +1,211 @@
+/* Algemene reset en basisstijlen */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto; /* Centreert de inhoud */
+}
+
+/* Header en Navigatie */
+header {
+    background-color: #007bff; /* Typische blauwe kleur voor een professionele look */
+    color: white;
+    padding: 15px 0;
+    border-bottom: 5px solid #0056b3;
+}
+
+header h1 {
+    display: inline-block;
+    margin: 0;
+}
+
+header nav {
+    float: right;
+    padding-top: 5px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+main {
+    padding: 40px 0;
+}
+
+main h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007bff;
+}
+
+/* Product Grid Layout */
+.product-grid {
+    display: grid;
+    /* Toont 3 kolommen, met gelijke breedte en een minimale grootte van 300px per kolom */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Individuele Product Card */
+.product-card {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Een klein visueel effect bij hover */
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.product-naam {
+    color: #333;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.product-beschrijving {
+    color: #666;
+    font-size: 0.9em;
+    height: 40px; /* Vaste hoogte voor uniforme kaarten */
+    overflow: hidden;
+}
+
+.product-prijs {
+    font-size: 1.5em;
+    color: #28a745; /* Groene kleur voor prijzen */
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.koop-nu {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.koop-nu:hover {
+    background-color: #1e7e34;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* stijlen voor de nieuwe secties */
+
+.webshop-banner {
+    background-color: #f8f8f8;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.webshop-banner h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.zoek-form {
+    display: flex;
+    max-width: 600px;
+    margin-top: 10px;
+}
+
+.zoek-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+}
+
+.zoek-form button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+/* De layout voor de hoofdinhoud (filters links, producten rechts) */
+.main-webshop-layout {
+    display: flex;
+    gap: 20px; /* Ruimte tussen sidebar en producten */
+    padding-top: 20px;
+    /* Zorg dat .container in de originele CSS een max-width heeft */
+}
+
+.filter-sidebar {
+    flex: 0 0 250px; /* Vaste breedte van 250px voor de sidebar */
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #fff;
+    height: fit-content; /* Zodat de achtergrond niet de hele pagina vult */
+    position: sticky; /* Zorgt dat de filters blijven staan tijdens scrollen */
+    top: 20px; /* Afstand van de bovenkant van het scherm */
+}
+
+.filter-sidebar h3, .filter-sidebar h4 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.producten-content {
+    flex-grow: 1; /* De rest van de ruimte innemen */
+}
+
+/* Zorg dat de product-grid hier ook op reageert (bijv. Grid of Flex) */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsieve grid */
+    gap: 20px;
+    margin-top: 15px;
+}
+
+/* ... bestaande product-card stijlen ... */

@@ -1,21 +1,18 @@
 <?php
 
 require 'db_config.php';
-
 $message = "";
 $type = "";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
     $naam_nl                = trim($_POST['naam_nl'] ?? '');
     $sku                    = trim($_POST['sku'] ?? '');
     $ean                    = trim($_POST['ean'] ?? NULL);
     $beschrijving_lang_nl   = trim($_POST['beschrijving_lang_nl'] ?? NULL);
-    $beschrijving_kort_nl   = trim($_POST['beschrijving_kort_nl'] ?? NULL); // NIEUW
+    $beschrijving_kort_nl   = trim($_POST['beschrijving_kort_nl'] ?? NULL); 
     $meta_titel_nl          = trim($_POST['meta_titel_nl'] ?? NULL);
-    $meta_beschrijving_nl   = trim($_POST['meta_beschrijving_nl'] ?? NULL); // NIEUW
-    $hoofd_afbeelding_pad   = trim($_POST['hoofd_afbeelding_pad'] ?? NULL); // NIEUW
-    $video_url              = trim($_POST['video_url'] ?? NULL); // NIEUW
+    $meta_beschrijving_nl   = trim($_POST['meta_beschrijving_nl'] ?? NULL); 
+    $hoofd_afbeelding_pad   = trim($_POST['hoofd_afbeelding_pad'] ?? NULL); 
+    $video_url              = trim($_POST['video_url'] ?? NULL); 
     
     // Slug: Creëer een slug uit de naam voor de URL. Dit moet uniek zijn!
     // **OPMERKING:** Voor een robuust systeem moet je een functie gebruiken die slugs genereert.
@@ -29,30 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $voorraad_laag_limiet   = filter_var($_POST['voorraad_laag_limiet'] ?? 5, FILTER_VALIDATE_INT); // NIEUW
     $hoofd_categorie_id     = filter_var($_POST['hoofd_categorie_id'] ?? NULL, FILTER_VALIDATE_INT);
     $fabrikant_merk_id      = filter_var($_POST['fabrikant_merk_id'] ?? NULL, FILTER_VALIDATE_INT);
-    
-    // Boolean velden
     $is_zichtbaar           = isset($_POST['is_zichtbaar']) ? 1 : 0;
-    $is_uitverkocht         = isset($_POST['is_uitverkocht']) ? 1 : 0; // NIEUW
-
-    // ----------------------------------------------------------------------------------
-    // 2. CONVERTEREN NAAR NULL (Voor optionele velden in de DB)
-    // ----------------------------------------------------------------------------------
+    $is_uitverkocht         = isset($_POST['is_uitverkocht']) ? 1 : 0;
     $gewicht_gram           = ($gewicht_gram === false || $gewicht_gram === null) ? NULL : $gewicht_gram;
     $voorraad_laag_limiet   = ($voorraad_laag_limiet === false || $voorraad_laag_limiet === null) ? 5 : $voorraad_laag_limiet;
     $hoofd_categorie_id     = ($hoofd_categorie_id === false) ? NULL : $hoofd_categorie_id;
     $fabrikant_merk_id      = ($fabrikant_merk_id === false) ? NULL : $fabrikant_merk_id;
     $ean                    = ($ean == '') ? NULL : $ean;
-    
-    // Lege strings omzetten naar NULL
     $meta_titel_nl = ($meta_titel_nl == '') ? NULL : $meta_titel_nl;
     $meta_beschrijving_nl = ($meta_beschrijving_nl == '') ? NULL : $meta_beschrijving_nl;
     $beschrijving_kort_nl = ($beschrijving_kort_nl == '') ? NULL : $beschrijving_kort_nl;
     $hoofd_afbeelding_pad = ($hoofd_afbeelding_pad == '') ? NULL : $hoofd_afbeelding_pad;
     $video_url = ($video_url == '') ? NULL : $video_url;
-
-    // ----------------------------------------------------------------------------------
-    // 3. VALIDATIE & OPSLAAN
-    // ----------------------------------------------------------------------------------
     if (empty($naam_nl) || empty($sku) || $prijs_excl_btw === false || $btw_tarief_id === false || $voorraad_aantal === false) {
         $message = "Fout: Vul alle verplichte velden in (Naam, SKU, Prijs, BTW ID, Voorraad).";
         $type = "error";
@@ -89,16 +74,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(':video', $video_url);
             $stmt->bindParam(':meta_titel', $meta_titel_nl);
             $stmt->bindParam(':meta_beschrijving', $meta_beschrijving_nl);
-            
             if ($stmt->execute()) {
                 $lastId = $pdo->lastInsertId();
                 $message = "Succes! Product **" . htmlspecialchars($naam_nl) . "** is toegevoegd (ID: {$lastId}).";
                 $type = "success";
+                header("Location: product_form.php");
+                exit;
             } else {
                 $message = "Fout bij opslaan: De database-executie is mislukt.";
                 $type = "error";
             }
-            
         } catch (PDOException $e) {
             if ($e->getCode() == 23000) {
                 $message = "Fout: SKU, EAN of SLUG bestaat al, of een van de opgegeven ID's (BTW, Categorie, Merk) bestaat niet.";
