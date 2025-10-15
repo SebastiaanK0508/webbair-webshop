@@ -1,22 +1,12 @@
 <?php
-// ***************************************************************
-// DE HOOFD PAGINA: ROEPT ALLEEN DE FUNCTIE AAN
-// ***************************************************************
-
-// 1. Database verbinding en functies inladen
-include 'get_products.php'; 
-
-// 2. Data ophalen via de functie (de $pdo variabele is beschikbaar door de include)
-$data = haalGefilterdeProductenOp($pdo);
-
-// 3. Data toewijzen aan lokale variabelen voor de HTML
-$producten = $data['producten'];
-$alle_categorieen = $data['alle_categorieen'];
-$f = $data['filters']; // Kortere naam voor filters
-$foutmelding = $data['foutmelding'] ?? '';
-
-// Sluit de databaseverbinding (PDO)
-$pdo = null; 
+    include 'get_products.php'; 
+    $data = haalGefilterdeProductenOp($pdo);
+    $producten = $data['producten'];
+    $alle_categorieen = $data['alle_categorieen'];
+    $f = $data['filters'];
+    $foutmelding = $data['foutmelding'] ?? '';
+    $count = 0; 
+    $pdo = null; 
 ?>
 
 <!DOCTYPE html>
