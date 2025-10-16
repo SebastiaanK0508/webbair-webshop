@@ -10,7 +10,7 @@
     $winkel_data = getShopData($pdo);
     $nieuwe_producten = $nieuwe_product_data['producten'];
     $homepage_fout = $nieuwe_product_data['foutmelding'];
-    $count = 0; 
+    $count = 0;
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -24,7 +24,7 @@
 
     <header>
         <div class="container">
-            <h1><?php echo htmlspecialchars($winkelnaam); ?></h1>
+            <h1><?php echo htmlspecialchars($winkel_data['webshop_naam']); ?></h1>
             <nav>
                 <a href="index.php">Home</a>
                 <a href="producten.php">Shop</a>

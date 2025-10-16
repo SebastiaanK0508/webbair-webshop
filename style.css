@@ -6,62 +6,50 @@ body {
     background-color: #f4f4f4;
     color: #333;
 }
-
 .container {
     width: 90%;
     max-width: 1200px;
-    margin: 0 auto; /* Centreert de inhoud */
+    margin: 0 auto;
 }
-
 /* Header en Navigatie */
 header {
-    background-color: #007bff; /* Typische blauwe kleur voor een professionele look */
+    background-color: #007bff; 
     color: white;
     padding: 15px 0;
     border-bottom: 5px solid #0056b3;
 }
-
 header h1 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display: inline-block;
     margin: 0;
 }
-
 header nav {
     float: right;
     padding-top: 5px;
 }
-
 header nav a {
     color: white;
     text-decoration: none;
     margin-left: 20px;
     font-weight: bold;
 }
-
 header nav a:hover {
     text-decoration: underline;
 }
-
 /* Main Content */
 main {
     padding: 40px 0;
 }
-
 main h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #007bff;
 }
-
-/* Product Grid Layout */
 .product-grid {
     display: grid;
-    /* Toont 3 kolommen, met gelijke breedte en een minimale grootte van 300px per kolom */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
-
-/* Individuele Product Card */
 .product-card {
     background-color: white;
     padding: 20px;
@@ -71,38 +59,32 @@ main h2 {
     text-align: center;
     transition: transform 0.3s;
 }
-
 .product-card:hover {
     transform: translateY(-5px); /* Een klein visueel effect bij hover */
 }
-
 .product-card img {
     max-width: 100%;
     height: auto;
     border-radius: 4px;
     margin-bottom: 15px;
 }
-
 .product-naam {
     color: #333;
     font-size: 1.2em;
     margin: 10px 0;
 }
-
 .product-beschrijving {
     color: #666;
     font-size: 0.9em;
     height: 40px; /* Vaste hoogte voor uniforme kaarten */
     overflow: hidden;
 }
-
 .product-prijs {
     font-size: 1.5em;
     color: #28a745; /* Groene kleur voor prijzen */
     font-weight: bold;
     margin: 15px 0;
 }
-
 .koop-nu {
     background-color: #28a745;
     color: white;
@@ -113,11 +95,9 @@ main h2 {
     font-size: 1em;
     transition: background-color 0.3s;
 }
-
 .koop-nu:hover {
     background-color: #1e7e34;
 }
-
 /* Footer */
 footer {
     background-color: #333;
