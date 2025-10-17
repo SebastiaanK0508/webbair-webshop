@@ -13,7 +13,8 @@ function getShopData($pdo) {
         'webshop_naam'          => $webshop_instellingen['webshop_naam'] ?? 'Webbair Webshop', 
         'hoofd_emailadres'      => $webshop_instellingen['hoofd_emailadres'] ?? 'Onbekend Adres',
         'telefoonnummer'        => $webshop_instellingen['telefoonnummer'] ?? '06-12345678',
-        'slogan'                => $webshop_instellingen['slogan'] ?? 'Ontdek ons uitgebreide assortiment van de beste producten.'
+        'slogan'                => $webshop_instellingen['slogan'] ?? 'Ontdek ons uitgebreide assortiment van de beste producten.',
+        'over_webshop'          => $webshop_instellingen['over_webshop'] ?? 'Uw store is gemaakt door Webbair.'
     ];
     return $winkel_data;
 }
