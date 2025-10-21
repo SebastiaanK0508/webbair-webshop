@@ -1,6 +1,9 @@
 <?php
 include 'webshop_beheer.php'; 
 $winkel_data = getShopData($pdo);
+include 'get_products.php';
+$producten = haalNieuweProductenOp($pdo)['producten'];
+$count = 0; 
 ?>
 <!DOCTYPE html>
 <html lang="nl">
