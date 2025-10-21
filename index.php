@@ -92,47 +92,69 @@
                 <?php 
                 if (!empty($homepage_fout)):
                 ?>
-                    <p class="error-message" role="alert"><?php echo htmlspecialchars($homepage_fout); ?></p>
+                    <p class="error-message" role="alert">
+                        <?php echo htmlspecialchars($homepage_fout); ?>
+                    </p>
                 <?php 
                 elseif (empty($nieuwe_producten)):
                 ?>
                     <p>Er zijn momenteel geen nieuwe producten beschikbaar. Kom snel terug!</p>
                 <?php 
                 else: 
-                    $limiet = 4; 
+                    $limiet = 4;
                     $producten_getoond = 0;
                     foreach ($nieuwe_producten as $product): 
                         if ($producten_getoond >= $limiet) break;
                         $producten_getoond++;
+                        $afbeelding = !empty($product['hoofd_afbeelding_pad']) 
+                                    ? htmlspecialchars($product['hoofd_afbeelding_pad']) 
+                                    : 'afbeeldingen/WEBBAIR_20250812_230805_0000.jpg';
                         ?>
-                        <article class="product-card" aria-labelledby="product-naam-<?php echo $product['product_id']; ?>">
-                            <?php 
-                                $afbeelding = !empty($product['hoofd_afbeelding_pad']) ? htmlspecialchars($product['hoofd_afbeelding_pad']) : 'placeholder_mok.jpg';
-                            ?>
-                            <a href="product_detail.php?id=<?php echo $product['product_id']; ?>" aria-label="Bekijk product: <?php echo htmlspecialchars($product['naam_nl']); ?>">
-                                <img src="<?php echo $afbeelding; ?>" alt="Afbeelding van <?php echo htmlspecialchars($product['naam_nl']); ?>" loading="lazy">
+                        <article class="product-card" aria-labelledby="product-naam-<?php echo $product['product_id']; ?>">  
+                            <a href="product_detail.php?id=<?php echo $product['product_id']; ?>" 
+                            aria-label="Bekijk product: <?php echo htmlspecialchars($product['naam_nl']); ?>">
+                                <img src="<?php echo $afbeelding; ?>" 
+                                    alt="Afbeelding van <?php echo htmlspecialchars($product['naam_nl']); ?>" 
+                                    loading="lazy">
                             </a>
-                            <h3 id="product-naam-<?php echo $product['product_id']; ?>" class="product-naam">
-                                <a href="product_detail.php?id=<?php echo $product['product_id']; ?>"><?php echo htmlspecialchars($product['naam_nl']); ?></a>
-                            </h3>
-                            <p class="product-beschrijving"><?php echo htmlspecialchars($product['beschrijving_kort_nl'] ?? 'Nog geen korte beschrijving.'); ?></p>
-                            <div class="product-prijs-container">
-                                <p class="product-prijs">€ <?php echo number_format($product['prijs_excl_btw'], 2, ',', '.'); ?></p>
+                            <div class="product-content">
+                                <h3 id="product-naam-<?php echo $product['product_id']; ?>" class="product-naam">
+                                    <a href="product_detail.php?id=<?php echo $product['product_id']; ?>">
+                                        <?php echo htmlspecialchars($product['naam_nl']); ?>
+                                    </a>
+                                </h3>
+                                <p class="product-beschrijving">
+                                    <?php echo htmlspecialchars($product['beschrijving_kort_nl'] ?? 'Nog geen korte beschrijving.'); ?>
+                                </p>
+                                <div class="product-info-bottom">
+                                    <div class="product-prijs-container">
+                                        <p class="product-prijs">
+                                            &euro; <?php echo number_format($product['prijs_excl_btw'], 2, ',', '.'); ?>
+                                        </p>
+                                    </div>
+                                    <button class="koop-nu" 
+                                            data-product-id="<?php echo $product['product_id']; ?>" 
+                                            aria-label="Voeg <?php echo htmlspecialchars($product['naam_nl']); ?> toe aan winkelwagen">
+                                        <i class="fas fa-cart-plus"></i> In Winkelwagen
+                                    </button>
+                                </div>
                             </div>
-                            <button class="koop-nu" data-product-id="<?php echo $product['product_id']; ?>" aria-label="Voeg <?php echo htmlspecialchars($product['naam_nl']); ?> toe aan winkelwagen">
-                                <i class="fas fa-cart-plus"></i> In Winkelwagen
-                            </button>
                         </article>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php 
+                    endforeach; 
+                endif; 
+                ?>
+                
             </div>
-             <?php if (!empty($nieuwe_producten)): ?>
-                 <div class="text-center" style="margin-top: 30px;">
+            
+            <?php if (!empty($nieuwe_producten)): ?>
+                <div class="text-center" style="margin-top: 30px;">
                     <a href="producten.php" class="button secondary-button" role="button">
                         Bekijk Alle Producten <i class="fas fa-chevron-right"></i>
                     </a>
-                 </div>
+                </div>
             <?php endif; ?>
+            
         </section>
     </main>
     
