@@ -1,8 +1,8 @@
 <?php
     session_start();
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-        // header("Location: begin.php");
-        // exit; //deze moet nog weg voor livegang! (Laat ik hier staan voor de duidelijkheid)
+        header("Location: begin.php");
+        exit; //deze moet nog weg voor livegang! (Laat ik hier staan voor de duidelijkheid)
     }
     include 'get_products.php';
     include 'webshop_beheer.php'; 
@@ -10,10 +10,8 @@
     $winkel_data = getShopData($pdo);
     $nieuwe_producten = $nieuwe_product_data['producten'];
     $homepage_fout = $nieuwe_product_data['foutmelding'];
-    $product_count = $_SESSION['product_count'] ?? 0; // Gebruik de sessie voor de telling
+    $product_count = $_SESSION['product_count'] ?? 0;
     $slogan = htmlspecialchars($winkel_data['slogan'] ?? 'Ontdek ons uitgebreide assortiment van de beste producten.');
-
-    // Zorg ervoor dat de winkelnaam altijd beschikbaar is
     $webshop_naam = htmlspecialchars($winkel_data['webshop_naam'] ?? 'Mijn Webshop'); 
 ?>
 <!DOCTYPE html>
@@ -106,22 +104,22 @@
                     foreach ($nieuwe_producten as $product): 
                         if ($producten_getoond >= $limiet) break;
                         $producten_getoond++;
-                ?>
-                        <article class="product-card" aria-labelledby="product-naam-<?php echo $product['id']; ?>">
+                        ?>
+                        <article class="product-card" aria-labelledby="product-naam-<?php echo $product['product_id']; ?>">
                             <?php 
                                 $afbeelding = !empty($product['hoofd_afbeelding_pad']) ? htmlspecialchars($product['hoofd_afbeelding_pad']) : 'placeholder_mok.jpg';
                             ?>
-                            <a href="product_detail.php?id=<?php echo $product['id']; ?>" aria-label="Bekijk product: <?php echo htmlspecialchars($product['naam_nl']); ?>">
+                            <a href="product_detail.php?id=<?php echo $product['product_id']; ?>" aria-label="Bekijk product: <?php echo htmlspecialchars($product['naam_nl']); ?>">
                                 <img src="<?php echo $afbeelding; ?>" alt="Afbeelding van <?php echo htmlspecialchars($product['naam_nl']); ?>" loading="lazy">
                             </a>
-                            <h3 id="product-naam-<?php echo $product['id']; ?>" class="product-naam">
-                                <a href="product_detail.php?id=<?php echo $product['id']; ?>"><?php echo htmlspecialchars($product['naam_nl']); ?></a>
+                            <h3 id="product-naam-<?php echo $product['product_id']; ?>" class="product-naam">
+                                <a href="product_detail.php?id=<?php echo $product['product_id']; ?>"><?php echo htmlspecialchars($product['naam_nl']); ?></a>
                             </h3>
                             <p class="product-beschrijving"><?php echo htmlspecialchars($product['beschrijving_kort_nl'] ?? 'Nog geen korte beschrijving.'); ?></p>
                             <div class="product-prijs-container">
                                 <p class="product-prijs">€ <?php echo number_format($product['prijs_excl_btw'], 2, ',', '.'); ?></p>
                             </div>
-                            <button class="koop-nu" data-product-id="<?php echo $product['id']; ?>" aria-label="Voeg <?php echo htmlspecialchars($product['naam_nl']); ?> toe aan winkelwagen">
+                            <button class="koop-nu" data-product-id="<?php echo $product['product_id']; ?>" aria-label="Voeg <?php echo htmlspecialchars($product['naam_nl']); ?> toe aan winkelwagen">
                                 <i class="fas fa-cart-plus"></i> In Winkelwagen
                             </button>
                         </article>
